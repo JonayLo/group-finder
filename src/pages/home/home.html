@@ -1,17 +1,52 @@
+<!--
+  Generated template for the HomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Group Finder</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+
+<ion-content class="bg-grey">
+
+
+    <div class="panel" *ngIf="!(auth.authState| async) || (grupo | async)?.length < 1" >
+        <ion-toolbar color="secondary" style="padding:0px">
+          <ion-title>Grupos de estudio</ion-title>
+        </ion-toolbar>
+        <p padding>¿Aun no perteneces a ningun grupo de estudio? <span style="font-weight: bold;">¡CREA YA el tuyo propio o ENCUENTRA grupos que busquen estudiantes!</span> </p>
+      </div>
+
+    <div class="panel"  *ngIf="(auth.authState| async) && (grupo | async)?.length >= 1 "  >
+      <ion-toolbar color="secondary" style="padding:0px">
+        <ion-title>Actividad reciente de grupos</ion-title>
+      </ion-toolbar>
+      <ion-item-divider *ngFor="let group of grupo | async" (click)="goToGroup(group.id)" >{{group.name}} </ion-item-divider>
+      <ion-list>
+        <ion-item *ngFor="let item of logs | async" text-wrap >
+            <i *ngIf="item.color=='green'" class="fa fa-{{item.type}}" aria-hidden="true" style="color:green;"></i>
+            <i *ngIf="item.color=='danger'" class="fa fa-{{item.type}}" aria-hidden="true" style="color:red;"></i>
+           {{item.date | date:'dd.MM.yyyy HH:mm:ss'}} - {{item.message}}
+        </ion-item>
+      </ion-list>
+    </div>
+
+
+
+  <div class="panel" (click)="goToApadrina()">
+    <ion-toolbar color="secondary" style="padding:0px">
+      <ion-title>¡Apadrina alumnos!</ion-title>
+    </ion-toolbar>
+    <p padding>¿Eres un alumno experimentado y buscas ayudar a otros alumnos o ingresar en el programa Mentor? O por el contrario, ¿eres alumno de nuevo ingreso o buscas ayuda con algunas
+      asignaturas o cuestiones administrativas? En <span style="font-weight: bold;">"Apadrina un alumno"</span>   podrás encontrar toda la información necesaria.
+    </p>
+  </div>
+
 </ion-content>

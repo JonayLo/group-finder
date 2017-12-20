@@ -1,0 +1,45 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Repositorio de grupo</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row style="margin-bottom:12px;">
+    <button ion-button icon-left style="" (click)="showInput()" style="margin-right:10px;">
+      <ion-icon name="folder"></ion-icon>
+      Crer carpeta</button>
+    <button ion-button icon-left style="" (click)="openInput()">
+      <ion-icon name="document"></ion-icon>
+      Subir documento</button>
+    <input type="file" id="fileInput" hidden (change)="uploadFile($event)">
+  </ion-row>
+  <ion-row id="input" [hidden]="hidden">
+    <ion-col col-7>
+      <ion-input [(ngModel)]="dirName" type="text" style="border: 1px #94D0F1 solid; border-radius: 15px;" autofocus placeholder="Directorio..."></ion-input>
+    </ion-col>
+    <button ion-button (click)="createDir()" [disabled]="dirName == ''">Crear</button>
+  </ion-row>
+  <div style="margin-top:35px;">
+    <h3>{{rutaname}} {{(files|async)?.parent}}</h3>
+    <button *ngIf="!root" ion-button icon-only (click)="goBack(files?.filepath)">
+      <ion-icon name="arrow-round-back"></ion-icon>
+    </button>
+    <ion-item-divider style="margin:0px !important;padding: 0px !important;"></ion-item-divider>
+  </div>
+  <ion-list>
+    <ion-item *ngFor="let file of files | async" text-wrap>
+      <ion-icon name={{file.type}} item-start></ion-icon>
+      <span (click)="itemClick(file)">{{(file.filename)}}</span>
+      <button ion-button item-end color="danger" *ngIf="(auth.authState | async)?.uid==(group | async)?.owner" (click)="deleteFile(file)">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>

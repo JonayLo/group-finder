@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      {{ (user | async)?.name }}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page3">
+  <div>
+    <img src="{{(user|async)?.avatar}}" style="display:block;width:50%;height:auto;" />
+    <button *ngIf="own"  ion-button style="display:block;width:50%;" (click)="changePic()">Change profile pic</button>
+  </div>
+  <div style="margin-top:10px;">
+    <ion-item-divider no-padding>
+      <h2>Información Personal</h2>
+    </ion-item-divider>
+    <ion-row>
+      <ion-col col-8>
+        Nombre: {{ (user | async)?.name}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-8>
+        Email: {{(user|async)?.email}}
+      </ion-col>
+    </ion-row>
+    <div style="margin-top:20px;">
+      <ion-item-divider no-padding>
+        <h2>Asignaturas</h2>
+      </ion-item-divider>
+      <ul>
+      <li *ngFor="let asignatura of asignaturas | async">{{asignatura.name}}</li>
+      </ul>
+      <input type="file" name="profile_picture" id="ppic" hidden (change)="uploadPic($event)">
+    </div>
+  </div>
+  <div style="margin-top:25px">
+      <ion-item-divider no-padding>
+          <h2>Grupos de estudio</h2>
+        </ion-item-divider>
+        <ion-list no-padding>
+            <ion-item *ngFor="let group of groups | async" no-padding (click)="goToGroup(group.id)">
+              {{group.name}}
+              <span item-end>{{group.cod}}</span>
+            </ion-item>
+        </ion-list>
+  </div>
+</ion-content>

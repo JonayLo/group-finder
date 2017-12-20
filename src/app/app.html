@@ -1,1 +1,37 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="mainContent" color="primary">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>
+        Menu
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content id="side-menu21">
+    <ion-list id="menu-list1">
+      <ion-item color="none" menuClose="" on-click="goToHome()" id="menu-list-item1">
+        Inicio
+      </ion-item>
+      <ion-item  *ngIf="(auth.authState| async)" color="none" menuClose="" on-click="goToProfile()" id="menu-list-item1">
+          Mi Perfil
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToGroups()" id="menu-list-item1">
+        Grupos de estudio
+      </ion-item>
+      <ion-item  *ngIf="(auth.authState| async)" color="none" menuClose="" on-click="goToMyGroups()" id="menu-list-item1">
+        Mis Grupos
+      </ion-item>
+      <ion-item color="none" *ngIf="(auth.authState| async)" menuClose="" on-click="notifications()" id="menu-list-item1">
+          <ion-icon *ngIf="(notifis | async)?.length > 0"  name="notifications"  color="danger"></ion-icon>
+        Notificaciones
+      </ion-item>
+      <ion-item color="none" *ngIf="(auth.authState| async)" menuClose="" on-click="logout()" id="menu-list-item2">
+        Logout
+      </ion-item>
+      <ion-item *ngIf="!(auth.authState| async)" color="none" menuClose="" on-click="login()" id="menu-list-item2">
+          Login
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #mainContent [root]="rootPage" main #content></ion-nav>

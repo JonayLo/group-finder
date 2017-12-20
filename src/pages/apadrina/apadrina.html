@@ -1,0 +1,75 @@
+<!--
+  Generated template for the ApadrinaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Apadrina</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <div padding>
+    <ion-segment [(ngModel)]="apadrina">
+      <ion-segment-button value="Padrinos">
+        Padrinos
+      </ion-segment-button>
+      <ion-segment-button value="Apadrina">
+        Apadrina
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="apadrina">
+    <div *ngSwitchCase="'Padrinos'">
+      <p  style="margin-bottom:40px">Muchos alumnos se ofrecen a ayudar a otros alumnos de nuevo ingreso o inexpertos tanto en temas académicos como en
+        temas institucionales. A continuación podrás ver una lista de grupos que prestan tal ayuda a los que puedes enviar
+        una petición de apadrinamiento.
+      </p>
+      <ion-list *ngFor="let group of groups | async">
+          <ion-item   no-padding (click)="goToGroup(group.id)" text-wrap>
+            <ion-row><h2>{{group.name}}</h2></ion-row>
+          <ion-row>
+            <ion-col col-7>
+                <p>{{group.desc}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-item-divider></ion-item-divider>
+          </ion-item>
+        </ion-list>
+    </div>
+
+    <div *ngSwitchCase="'Apadrina'">
+      <ng-container *ngIf="!(user|async)?.mentor ; else mentor" >
+          <p>Ofrecete a ayudar a alumnos de nuevo ingreso a nivel tanto académico como institucional. Se te creará un grupo privado
+              al que te llegarán peticiones de unión por parte de los estudiantes.</p>
+              <form [formGroup]="form" (ngSubmit)="createGroup()">
+                  <ion-label>Expon brevemente tus dotes como padrino</ion-label>
+                  <ion-textarea formControlName="desc" rows="4" style="border: 1px #94D0F1 solid; border-radius: 15px;" required></ion-textarea>
+                  <button ion-button color="primary" block type="submit" [disabled]="!form.valid" style="margin-top:15px;">
+                    Inscribirme
+                  </button>
+                </form>
+      </ng-container>
+
+      <ng-template #mentor>
+          <button col-12 ion-button color="primary" (click)="leave()" >
+              Abandonar programa Apadrina
+          </button>
+      </ng-template>
+    </div>
+
+
+  </div>
+
+</ion-content>

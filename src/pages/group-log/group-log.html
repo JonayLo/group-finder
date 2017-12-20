@@ -1,0 +1,28 @@
+<!--
+  Generated template for the GroupLogPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Log</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let log of logs | async" text-wrap>
+        <i *ngIf="log.color=='green'" class="fa fa-{{log.type}}" aria-hidden="true" style="color:green;"></i>
+        <i *ngIf="log.color=='danger'" class="fa fa-{{log.type}}" aria-hidden="true" style="color:red;"></i>
+      {{log.date | date:'dd.MM.yyyy HH:mm:ss'}} - {{log.message}}
+    </ion-item>
+  </ion-list>
+
+</ion-content>

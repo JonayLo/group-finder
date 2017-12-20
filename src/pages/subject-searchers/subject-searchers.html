@@ -1,0 +1,38 @@
+
+<ion-header>
+
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Busqueda de estudiantes</ion-title>
+      </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+      <ng-container *ngFor="let user of users | async">
+        <ion-item *ngIf="!isInGroup(user)" >
+          <ion-avatar item-start>
+            <img src="{{user.avatar}}">
+          </ion-avatar>
+          <ion-row>
+            <ion-col col-8>
+                <h2>{{user.name}}</h2>
+            </ion-col>
+            <ion-col col-2>
+                <button ion-button icon-only small color="secondary" (click)="userProfile(user.uid)">
+                    <ion-icon name="eye"></ion-icon>
+                  </button>
+            </ion-col>
+            <ion-col col-2>
+                <button ion-button icon-only small color="green" (click)="inviteUser(user.uid)">
+                    <ion-icon name="return-left"></ion-icon>
+                  </button>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        </ng-container>
+      </ion-list>
+</ion-content>

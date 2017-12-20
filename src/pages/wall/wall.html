@@ -1,0 +1,55 @@
+<!--
+  Generated template for the WallPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Muro de grupo</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h3>{{(group|async)?.name}}</h3>
+  <div *ngIf="member ; else notmember">
+    <ion-row>
+      <ion-col col-8>
+        <ion-textarea [(ngModel)]="message" placeholder="Escriba su mensaje aquí" rows="4" style="border: 1px #94D0F1 solid; border-radius: 15px;"></ion-textarea>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button style="position:absolute;bottom:0px;height:50%;width:75%;" (click)="sendMessage($event)" [disabled]="message == ''">Enviar</button>
+      </ion-col>
+    </ion-row>
+    <ion-item-divider no-padding></ion-item-divider>
+    <ion-list style="margin-top:20px">
+      <ion-item *ngFor="let message of messages | async" text-wrap>
+        <ion-avatar item-start>
+          <img src="{{message.avatar}}">
+        </ion-avatar>
+        <h3>Enviado por: {{message.sender}}</h3>
+        <p>{{message.message}}</p>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ng-template #notmember style="margin-top:25px;">
+    <ion-row>Asignatura:{{(group|async)?.asignatura}}</ion-row>
+    <p>Descripción: {{(group|async)?.desc}}</p>
+
+    <div *ngIf="(group|async)?.requests!==undefined ; else another">
+      <button *ngIf="(auth.authState| async) && !(group|async)?.requests[(auth.authState| async)?.uid] && !pending"
+        ion-button (click)=apply()>Enviar solicitud de entrada</button>
+        <p *ngIf="((auth.authState| async)  && (group|async)?.requests[(auth.authState| async)?.uid]) || pending">Solicitud pendiente</p>
+    </div>
+    <ng-template #another>
+        <button *ngIf="(auth.authState| async)"
+        ion-button (click)=apply()>Enviar solicitud de entrada</button>
+    </ng-template>
+  </ng-template>
+</ion-content>

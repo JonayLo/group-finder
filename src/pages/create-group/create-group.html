@@ -1,0 +1,38 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title>Creando un grupo de estudio</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <form [formGroup]="form" (ngSubmit)="createGroup()">
+    <ion-list>
+        <ion-item>
+          <ion-label color="primary" floating >Nombre del grupo</ion-label>
+          <ion-input placeholder="Nombre" formControlName="name" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Asignatura</ion-label>
+            <ion-select formControlName="asignatura" [(ngModel)]="asig" (ionChange)=cod()>
+              <ion-option *ngFor="let asignatura of asignaturas | async" value="{{asignatura.name}}" required>{{asignatura.name}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Privado</ion-label>
+            <ion-toggle formControlName="pr" checked="false"></ion-toggle>
+        </ion-item>
+    </ion-list>
+    <ion-label>Descripción del grupo</ion-label>
+    <ion-textarea formControlName="desc" rows="4" placeholder="Breve descripción del grupo" style="border: 1px #94D0F1 solid; border-radius: 15px;" required></ion-textarea>
+    <button  ion-button color="primary" block  type="submit" [disabled]="!form.valid" style="margin-top:15px;">
+      Crear Grupo
+    </button>
+    </form>
+</ion-content>
