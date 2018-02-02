@@ -1,9 +1,43 @@
-## Resumen
+# Group-finder
 
-Este proyecto se plantea con el objetivo fomentar el estudio en grupo, conociendo los beneficios y las aportaciones que este tipo de aprendizaje realiza sobre los estudiantes.
+The aim of this project is to promote the study groups, knowing their benefits and what this kind of learning method provides to the students.
 
-Para ello, se propone el desarrollo de un prototipo de aplicación móvil mediante la cual los usuarios serán capaces de gestionar sus grupos de estudio y participar en un programa de apadrinamiento
-en el que un estudiante mas experimentado podrá ayudar a estudiantes de nuevo ingreso en temas tanto académicos como de gestión de trámites de la universidad.
+This project proposes the development of a prototype of a mobile application with which users will be able to manage theirs own study groups and to participate in a university program in which a more expecienced student could help newcomer students in academic issues or managing their university procedures.
 
-Cada grupo cuenta con un muro en el que los integrantes podrán enviar mensajes comunes a todos los miembros del grupo, así como un repositorio de documentos privado.
+Every group has his own wall where the group members will be able to send messages to each other, and features a private file repository.
 
+
+
+
+## Getting Started
+
+Clone the project
+
+### Prerequisites
+
+ * Requires a FireBase active proyect.
+ * NodeJS
+ * NPM
+ * Ionic3
+
+### Installing
+
+Fllow those steps to get a development environment running
+
+1. Clone the project
+2. npm -g install
+3. ionic serve
+
+
+## Built With
+
+* Ionic3
+* FireBase Realtime DataBase
+* AngularJS
+* Cordova
+* FireBase Cloud Storage
+
+
+
+
+ 
